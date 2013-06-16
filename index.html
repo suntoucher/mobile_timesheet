@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>NTT Data timesheets</title>
+<link rel="stylesheet" type="text/css" href="css/themes/NTTMobile1.min.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile.structure-1.3.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	</head>
+
+<body>
+<!-- Home Page -->
+<div data-role="page"  id="home" data-theme="c">
+  <div id="homeheader">
+    <div style="text-align:center">
+    <h1 id="jqm-logo"><div data-role="header" > NTT Data </div></h1>
+    <p>
+       Welcome <%= ls_personal_data-firstname %> <%= ls_personal_data-last_name %> <br>
+       Personnel No. <%= lv_pernr %>
+    </p>
+    </div>
+  </div>
+  <div data-role="content" >
+    <ul data-role="listview" data-inset="true"  >
+      <li><a href="#timesheet_services">Timesheet Services</a></li>
+      <li><a href="#wbs">Approval Requests</a></li>
+    </ul>
+    <ul data-role="listview" data-inset="true"  data-dividertheme="a">
+      <li><a href="#help" data-transition="flip">Help</a></li>
+    </ul>
+  </div>
+  <div data-role="footer">
+  </div>
+</div><!-- /Home Page -->
+<!-- WBS-->
+<div data-role="page" id="wbs">
+  <div data-role="header">
+    <a href="#home"   data-role="button" data-icon="home" data-iconpos="notext"></a>
+    <h1>Approval WBS</h1>
+  </div>
+  <div data-role="content">
+  <ul data-role="listview" data-inset="true" data-filter="true"  data-dividertheme="a">
+      <li data-role="list-divider">WBS</li>
+      	<li><a href="#employees">WBS1</a></li>
+        
+        <% field-symbols: <ls_wbs_line> like line of lt_wbs.
+           data: lv_wbs_name(20).
+           data: lv_wbs_code(5).
+           
+           loop at lt_wbs assigning <ls_wbs_line>.
+             
+           <li><%= <ls_wbs_line>-name %>
+               
+           </li>
+        <% endloop. %>
+   </ul>
+  </div>
+  <div data-role="footer">
+  </div>
+</div><!-- /WBS -->
+<!-- Employees -->
+<div data-role="page" id="employees">
+  <div data-role="header">
+  <a href="#home"   data-role="button" data-icon="home" data-iconpos="notext"></a>
+    <h1>Employees for WBS - WBS1</h1>
+  </div>
+  <div data-role="content">
+  	<ul data-role="listview" data-inset="true" data-filter="true" data-dividertheme="a">
+    	<li data-role="list-divider">Employees</li>
+          <li><a href="#employee_rec">Employee1</a></li> 		
+    </ul>
+  </div>
+  <div data-role="footer">
+  </div>
+</div>
+<!-- /Employees -->
+<!-- Employee Rec -->
+<div data-role="page" id="employee_rec">
+    <div data-role="header">
+        <a href="#home"   data-role="button" data-icon="home" data-iconpos="notext"></a>
+        <h1>Employee1 Record</h1>
+    </div>
+    <div data-role="content">
+     
+    </div>
+    <div data-role="footer">
+    </div>
+</div>
+<!-- /Employee Rec-->
+<!-- Timesheet Services -->
+<div data-role="page"  id="timesheet_services" >
+  <div data-role="header" >
+    <a href="#home"   data-role="button" data-icon="home" data-iconpos="notext"></a>
+    <h1>Timesheet</h1>
+  </div>
+  <div data-role="content">
+    <ul data-role="listview" data-inset="true" >
+      <li data-role="list-divider">Services</li>
+      <li><a href="#new_entry">New Entry</a></li>
+      <li><a href="#copy_previous_week">Copy previous week</a></li>
+    </ul>
+  </div>
+  <div data-role="footer">
+  </div>
+</div><!-- /Timesheet Services -->
+
+<!-- new entry -->
+<div data-role="page" id="new_entry">
+  <div data-role="header">
+    <a href="#timesheet_services" data-icon="arrow-l">Back</a>
+    <h1>New Entry</h1>
+  </div>
+  <div data-role="content">
+    <div data-role="collapsible-set">
+      <div data-role="collapsible">
+        <h3>Monday</h3>
+        <p>Content</p>
+      </div>
+      <div data-role="collapsible" data-collapsed="true">
+        <h3>Tuesday</h3>
+        <p>Content</p>
+      </div>
+      <div data-role="collapsible" data-collapsed="true">
+        <h3>Wednesday</h3>
+        <p>Content</p>
+      </div>
+      <div data-role="collapsible" data-collapsed="true">
+        <h3>Thursday</h3>
+        <p>Content</p>
+      </div>
+      <div data-role="collapsible" data-collapsed="true">
+        <h3>Friday</h3>
+        <p>Content</p>
+      </div>
+    </div>
+    
+  </div>
+  <div data-role="footer">
+  </div>
+</div><!-- /new entry -->
+
+<!-- Copy previous week -->
+<div data-role="page" id="emp_address">
+  <div data-role="header">
+    <a href="#timesheet_services" data-icon="arrow-l">Back</a>
+    <h1>Copy week</h1>
+    <a href="#copy_week" data-transition="slideup" class="ui-btn-right">Edit</a>
+  </div>
+  <div data-role="content">
+    <ul data-role="listview" data-inset="true"  data-dividertheme="a">
+      <li data-role="list-divider">Main Address</li>
+      <li>
+          <span id="display_street"><%= ls_address_data-stras %></span><br>
+          <span id="display_city"><%= ls_address_data-ort01 %></span><br>
+          <span id="display_state"><%= ls_address_data-state %></span><br>
+          <span id="display_postcode"><%= ls_address_data-pstlz %></span>
+      </li>
+    </ul>
+  </div>
+  <div data-role="footer">
+  </div>
+</div><!-- /Copy previous week -->
+ <!-- Help -->
+<div data-role="page"  id="help">
+  <div data-role="header" >
+    <a href="#home" data-icon="arrow-l">Back</a>
+    <h1>Help</h1>
+  </div>
+  <div data-role="content">
+    <p>This Web application requires an internet connection to operate.  The performance of the application may vary
+depending upon connection speeds.</p>
+  </div>
+</div><!-- /Help -->
+
+<!-- Message -->
+<div data-role="dialog"  id="message">
+  <div data-role="header" >
+    <h1> </h1>
+  </div>
+  <div data-role="content">
+    <p id="return_message" mce_keep="true" mce_keep="true"> </p>
+    <a href="" data-role="button" data-theme="c"><center>OK</center></a>
+  </div>
+</div><!-- /Message -->
+</body>
+</html>
